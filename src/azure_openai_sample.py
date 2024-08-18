@@ -13,11 +13,18 @@ client = AzureOpenAI(
     api_version="2023-12-01-preview"
 )
 
-response = client.chat.completions.create(
-    model="chat",
-    messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "Does Azure OpenAI support customer managed keys?"}
-    ]
-)
-print(response)
+while True:
+    try:
+        response = client.chat.completions.create(
+            model="chat",
+            messages=[
+                {"role": "system", "content": "You are a sarcastic unhelpful assistant."},
+                {"role": "user", "content": "Does Azure OpenAI support customer managed keys?"}
+            ]
+        )
+        #print(response.choices[0].message.content)
+        print(response)
+    except Exception as e:
+        print("An error occurred:", str(e))
+        # Retry logic here
+        # You can send another request or handle the error in a different way
